@@ -18,7 +18,7 @@ data House = House { housePosition :: Position
                    } deriving (Show, Eq)
 
 -- Game State
-data GameState = GameState { gameStateRoundNumber :: Int
+data GameState = GameState { gameStateTurnNumber :: Int
                            , gameStateRobots :: [Robot]
                            , gameStateMoves :: [(Direction, String)]
                            , gameStateVisitedHouses :: [House]

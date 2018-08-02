@@ -14,22 +14,21 @@ defaultMoveSequence = "^^VV<>"
 
 initialGameState :: GameState
 initialGameState = GameState
-  { gameStateRoundNumber = 0
-  , gameStateRobots = initialRobots defaultRobotArray
-  , gameStateMoves = zip (moveSeqToDirections defaultMoveSequence) (cycle (robotName <$> initialRobots defaultRobotArray))
+  { gameStateTurnNumber = 0
+  , gameStateRobots = createRobots defaultRobotArray
+  , gameStateMoves = zip (moveSeqToDirections defaultMoveSequence) (cycle (robotName <$> createRobots defaultRobotArray))
   , gameStateVisitedHouses = []
   }
 
-initialRobots :: [String] -> [Robot]
-initialRobots = fmap createRobot
+createRobots :: [String] -> [Robot]
+createRobots = fmap createRobot
   where
     createRobot name' = Robot name' (0,0) 0
 
-roundLoop :: State [GameState] [GameState]
-roundLoop = do
-  gameState <- get
+roundLoop :: [(Direction, String)] -> State [GameState] ()
+roundLoop moves = do
   -- loop over the game moves
-  _ <- for (gameStateMoves $ last gameState)
+  _ <- for moves
       (\(m,r) -> do
           ogs <- get
           let lastOldGameState = last ogs
@@ -37,27 +36,28 @@ roundLoop = do
               curRobot       = head $ filter (\a -> r == robotName a) allRobots
               curPos         = robotCurPosition curRobot
               newPos         = robotDirToPos m curPos
-              newroundNumber = gameStateRoundNumber lastOldGameState + 1
+              newTurnNumber = gameStateTurnNumber lastOldGameState + 1
               updateH        = updateHouses newPos (gameStateVisitedHouses lastOldGameState)
           -- is another robot already on the position current robot want's to move onto
           -- or is the robot going back to base (0,0)
           if newPos `elem` (robotCurPosition <$> allRobots) || newPos == (0,0)
             then
               put $ ogs <> [GameState
-                            { gameStateRoundNumber = newroundNumber
+                            { gameStateTurnNumber = newTurnNumber
                             , gameStateRobots = updateRobot newPos curRobot allRobots 0
                             , gameStateMoves = tail $ gameStateMoves lastOldGameState
                             , gameStateVisitedHouses = updateH 0
                             }]
             else
               put $ ogs <> [GameState
-                            { gameStateRoundNumber = newroundNumber
+                            { gameStateTurnNumber = newTurnNumber
                             , gameStateRobots = updateRobot newPos curRobot allRobots 1
                             , gameStateMoves = tail $ gameStateMoves lastOldGameState
                             , gameStateVisitedHouses = updateH 1
                             }]
       )
-  return gameState
+  return ()
+
 
 updateRobot :: Position -> Robot -> [Robot] -> Int -> [Robot]
 updateRobot p curRobot allRobots num =
@@ -92,5 +92,11 @@ viewRoundsAgo i = do
     [] -> error "You asked for a state that is before the beginning of time!"
     (x : _) -> pure x
 
+headGameStateMove :: GameState -> [(Direction, String)]
+headGameStateMove gs = [head $ gameStateMoves gs]
+
 main :: IO ()
-main = print $ last (execState roundLoop [initialGameState])
+main =
+  print $
+    execState (roundLoop $ gameStateMoves initialGameState)
+      [initialGameState]
