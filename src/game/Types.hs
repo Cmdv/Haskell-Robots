@@ -23,11 +23,3 @@ data GameState = GameState { gameStateTurnNumber :: Int
                            , gameStateMoves :: [(Direction, String)]
                            , gameStateVisitedHouses :: [House]
                            } deriving (Show, Eq)
-
-data Commands = Start
-              | RunAll
-              | RunOne
-              | WhereRobots
-              | ViewTurnNumber
-              | TotalDelivered
-              | HousesWithXDelivered
