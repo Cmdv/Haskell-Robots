@@ -1,4 +1,4 @@
-module Types where
+module Game.Types where
 
 -- Positions of Robot / Houses
 type Position = (Int, Int)
@@ -23,3 +23,11 @@ data GameState = GameState { gameStateTurnNumber :: Int
                            , gameStateMoves :: [(Direction, String)]
                            , gameStateVisitedHouses :: [House]
                            } deriving (Show, Eq)
+
+data Commands = Start
+              | RunAll
+              | RunOne
+              | WhereRobots
+              | ViewTurnNumber
+              | TotalDelivered
+              | HousesWithXDelivered

@@ -1,7 +1,7 @@
-module Moves where
+module Game.Moves where
 
 import Data.Maybe (mapMaybe)
-import Types
+import Game.Types
 
 moveSeqToDirections :: String -> [Direction]
 moveSeqToDirections = mapMaybe parse
@@ -20,3 +20,8 @@ robotDirToPos dir (x, y) = case dir of
   MoveLeft  -> (x - 1 , y)
   MoveDown  -> (x     , y - 1)
   MoveUp    -> (x     , y + 1)
+
+createRobots :: [String] -> [Robot]
+createRobots = fmap createRobot
+  where
+    createRobot name' = Robot name' (0,0) 0
