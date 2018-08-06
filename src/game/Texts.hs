@@ -21,7 +21,6 @@ getMovesAndRobots = do
   numRobot <- getLine
   return (convertMoves moves, convertNumRobot numRobot)
 
-
 robotTitle :: String
 robotTitle =
   "\n\n"
@@ -34,17 +33,11 @@ robotTitle =
   ++ "$$ |  $$ |\\$$$$$$  |$$$$$$$  |\\$$$$$$  | \\$$$$  |$$$$$$$  | \n"
   ++ "\\__|  \\__| \\______/ \\_______/  \\______/   \\____/ \\_______/ \n"
 
-
-
-
-
-
 byeBye :: String
 byeBye = "👋 Thanks for playing see you soon!!!"
 
 selectOption :: String
 selectOption = "\n" ++ "λ - select a command use 'help' to view all commands:"
-
 
 showHelp :: String
 showHelp =
@@ -59,7 +52,6 @@ showHelp =
 
 successSim :: String
 successSim = "🚀 Sucess the simulation was run 🚀"
-
 
 successRobot :: String
 successRobot = "The state of your robots after simulation "

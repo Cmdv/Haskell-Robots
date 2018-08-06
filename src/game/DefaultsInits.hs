@@ -4,7 +4,6 @@ import Data.Maybe
 import Game.Moves (moveSeqToDirections, createRobots)
 import Game.Types
 
-
 defaultRobotArray :: [String]
 defaultRobotArray = ["Robbie", "Jane", "Bob", "Becky", "Stephen", "Peter", "Suzie", "Alex", "Mary", "Hannah"]
 

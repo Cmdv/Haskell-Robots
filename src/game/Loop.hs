@@ -26,7 +26,7 @@ singleGameLoop ogs = do
               newPos           = robotDirToPos m curPos
               newTurnNumber    = gameStateTurnNumber lastOldGameState + 1
               updateH          = updateHouses newPos (gameStateVisitedHouses lastOldGameState)
-          -- is another robot already on the position current robot want's to move onto
+          -- is another robot already on the position current robot wants to move onto
           -- or is the robot going back to base (0,0)
           if newPos `elem` (robotCurPosition <$> allRobots) || newPos == (0,0)
             then

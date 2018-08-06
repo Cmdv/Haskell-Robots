@@ -55,7 +55,6 @@ commandTotalRobots gs = do
   where
     robotLocation s = gameStateRobots (last s)
 
-
 -- Total presents
 commandPresents :: GameState -> IO ()
 commandPresents gs = do
@@ -65,7 +64,6 @@ commandPresents gs = do
     robotLocation s = do
       let houses = gameStateVisitedHouses (last s)
       foldr (\a b -> houseNumberOfDeliveries a + b ) 0 houses
-
 
 -- Show houses with 'x' or more deliveries
 commandHouses :: GameState -> IO ()

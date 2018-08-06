@@ -3,7 +3,7 @@ module Game.Types where
 -- Positions of Robot / Houses
 type Position = (Int, Int)
 
-
+-- Directions a robot can move
 data Direction = MoveUp | MoveDown | MoveLeft | MoveRight deriving (Show, Eq)
 
 -- All the values a Robot needs

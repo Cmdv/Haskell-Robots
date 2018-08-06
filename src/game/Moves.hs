@@ -26,7 +26,6 @@ createRobots = fmap createRobot
   where
     createRobot name' = Robot name' (0,0) 0
 
-
 updateRobotPos :: Position -> Robot -> [Robot] -> Int -> [Robot]
 updateRobotPos p curRobot allRobots num =
   (\r -> if robotName r == robotName curRobot
