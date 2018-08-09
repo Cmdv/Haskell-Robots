@@ -10,3 +10,5 @@ $$ |  $$ |\$$$$$$  |$$$$$$$  |\$$$$$$  | \$$$$  |$$$$$$$  |
 ```
 
 A commad line robot simulation using State Monad
+
+This is based on a task which can be found in `Task.hs` in root 🤖
